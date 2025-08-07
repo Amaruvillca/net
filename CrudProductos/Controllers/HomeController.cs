@@ -6,16 +6,17 @@ namespace CrudProductos.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    protected readonly ContextDb _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ContextDb context)
     {
-        _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var productos = _context.Productos.ToList();
+        return View(productos);
     }
 
     public IActionResult Privacy()
