@@ -19,8 +19,10 @@ namespace CrudProductos.Controllers
             _context = context;
         }
         public IActionResult Index()
+        
         {
-            return View();
+            var productos = _context.Productos.ToList();
+        return View(productos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
