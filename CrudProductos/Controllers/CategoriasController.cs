@@ -11,7 +11,7 @@ namespace CrudProductos.Controllers
 {
     public class CategoriasController : Controller
     {
-       protected readonly ContextDb _context;
+        protected readonly ContextDb _context;
 
         public CategoriasController(ContextDb context)
         {
@@ -28,6 +28,31 @@ namespace CrudProductos.Controllers
         public IActionResult Error()
         {
             return View("Error!");
+        }
+         [HttpPost]
+        public IActionResult Delete(int id_categoria)
+        {
+            try
+            {
+                var categoria = _context.Categorias.Find(id_categoria);
+            if (categoria != null)
+            {
+                _context.Categorias.Remove(categoria);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Categoría eliminada correctamente.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Categoría no encontrada.";
+            }
+            return RedirectToAction("Index");
+            }
+            catch (System.Exception)
+            {
+                TempData["ErrorMessage"] = "Error al eliminar la categoría. Asegúrese de que no haya productos asociados.";
+
+                return RedirectToAction("Index");
+            }
         }
     }
 }

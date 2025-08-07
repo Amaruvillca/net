@@ -24,6 +24,22 @@ namespace CrudProductos.Controllers
             var movimientos = _context.MovimientosStock.Include(m => m.Producto).Include(m => m.Almacen).ToList();
             return View(movimientos);
         }
+        [HttpPost]
+        public IActionResult Delete(int id_movimiento)
+        {
+            var movimiento = _context.MovimientosStock.Find(id_movimiento);
+            if (movimiento != null)
+            {
+                _context.MovimientosStock.Remove(movimiento);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Movimiento eliminado correctamente.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Movimiento no encontrado.";
+            }
+            return RedirectToAction("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
