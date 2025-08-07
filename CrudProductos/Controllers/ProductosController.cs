@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrudProductos.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -56,12 +57,12 @@ namespace CrudProductos.Controllers
             }
         }
         public IActionResult Create()
-        {
-
-            return View();
-        }
+{
+    ViewBag.Categorias = new SelectList(_context.Categorias, "id_categoria", "nombre_categoria");
+    return View();
+}
         [HttpPost]
-        public IActionResult Create(Productos producto)
+        public IActionResult Create(Productos producto, IFormFile imagen)
         {
             if (ModelState.IsValid)
             {

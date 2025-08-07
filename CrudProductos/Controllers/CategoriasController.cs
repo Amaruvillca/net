@@ -71,5 +71,29 @@ namespace CrudProductos.Controllers
             }
             return View(categoria);
         }
+        [Route("Categorias/Edit/{id_categoria}")]
+        public IActionResult Edit(int id_categoria)
+        {
+            var categoria = _context.Categorias.Find(id_categoria);
+            if (categoria == null)
+            {
+                TempData["ErrorMessage"] = "Categoría no encontrada." + id_categoria;
+                return RedirectToAction("Index");
+            }
+            return View(categoria);
+        }
+        [HttpPost]
+        [Route("Categorias/Edit/{id_categoria}")]
+        public IActionResult Edit(Categorias categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Categorias.Update(categoria);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Categoría actualizada correctamente.";
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Edit", new { id_categoria = categoria.id_categoria });
+        }
     }
 }
