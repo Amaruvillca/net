@@ -56,7 +56,15 @@
                                     }
                                 </td>
                                 <td>@producto.nombre_producto</td>
-                                <td>@producto.Categoria.nombre_categoria</td>
+                                @if (producto.Categoria == null)
+                                {
+                                    <td><span class="text-muted">Sin categoría</span></td>
+                                }
+                                else
+                                {
+                                    <td>@producto.Categoria.nombre_categoria</td>
+                                }
+                                
                                 <td>@producto.precio_unitario Bs.</td>
                                 <td>
                                     <span class="badge @(producto.stock > 10 ? "bg-success" : "bg-warning text-dark")">
