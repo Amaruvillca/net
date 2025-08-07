@@ -1,3 +1,15 @@
+@model List<Productos>
 @{
     ViewData["Title"] = "Productos";
 }
+
+<div class="text-center">
+    <h1 class="display-4">Productos</h1>
+    <p>Lista de productos disponibles:</p>
+    <ul>
+        @foreach (var producto in Model)
+        {
+            <li>@producto.nombre_producto - @producto.precio_unitario</li>
+        }
+    </ul>
+</div>

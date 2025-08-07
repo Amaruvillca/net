@@ -16,7 +16,7 @@ namespace CrudProductos.Models
         public string? tipo_movimiento { get; set; }
         public int? cantidad { get; set; }
         public DateTime? fecha_movimiento { get; set; }
-        public string? observaciones { get; set; }
+        public string? observacion { get; set; }
 
         [ForeignKey("id_producto")]
         public Productos? Producto { get; set; }

@@ -1,0 +1,13 @@
+@model List<Almacenes>
+@{
+    ViewData["Title"] = "Almacenes";
+}
+<div class="text-center">
+    <h1 class="display-4">Almacenes</h1>
+    <p>Lista de almacenes disponibles:</p>
+    <ul>
+        @foreach (var almacen in Model)
+        {
+            <li>@almacen.nombre_almacen - @almacen.ubicacion</li>
+        }
+    </ul>

@@ -1,0 +1,14 @@
+@model List<MovimientosStock>
+@{
+    ViewData["Title"] = "Movimientos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movimientos de Stock</h1>
+    <p>Lista de movimientos de stock realizados:</p>
+    <ul>
+        @foreach (var movimiento in Model)
+        {
+            <li>@movimiento.tipo_movimiento - @movimiento.cantidad - @movimiento.fecha_movimiento</li>
+        }
+    </ul>

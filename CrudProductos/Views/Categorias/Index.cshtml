@@ -1,0 +1,13 @@
+@model List<Categorias>
+@{
+    ViewData["Title"] = "Categorías";
+}
+<div class="text-center">
+    <h1 class="display-4">Categorías</h1>
+    <p>Lista de categorías disponibles:</p>
+    <ul>
+        @foreach (var categoria in Model)
+        {
+            <li>@categoria.nombre_categoria - @categoria.descripcion</li>
+        }
+    </ul>

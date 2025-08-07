@@ -219,7 +219,10 @@
             padding: 1.5rem;
             background: var(--card-bg);
             border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 0;
             margin-top: auto;
+            margin-bottom: 0;
+            position: relative;
         }
     </style>
 </head>
@@ -229,7 +232,7 @@
         <div class="sidebar-header">
             <a class="sidebar-brand" asp-controller="Home" asp-action="Index">
                 <i class="fas fa-store-alt"></i>
-                <span>AlmacénPro</span>
+                <span>Almacén</span>
             </a>
         </div>
 
@@ -238,12 +241,6 @@
                 <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -270,18 +267,7 @@
                     <span>Movimientos</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Reportes" asp-action="Index">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Reportes</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Configuracion" asp-action="Index">
-                    <i class="fas fa-cog"></i>
-                    <span>Configuración</span>
-                </a>
-            </li>
+            
         </ul>
     </nav>
 
@@ -300,7 +286,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="mb-0">&copy; 2025 AlmacénPro - Sistema de Gestión</p>
+                        <p class="mb-0">&copy; 2025 Almacén - Sistema de Gestión</p>
                     </div>
                     <div class="col-md-6 text-md-end">
                         <p class="mb-0">v1.0.0</p>
