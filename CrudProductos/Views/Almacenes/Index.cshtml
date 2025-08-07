@@ -1,13 +1,121 @@
 @model List<Almacenes>
 @{
-    ViewData["Title"] = "Almacenes";
+    ViewData["Title"] = "Gestión de Almacenes";
 }
-<div class="text-center">
-    <h1 class="display-4">Almacenes</h1>
-    <p>Lista de almacenes disponibles:</p>
-    <ul>
-        @foreach (var almacen in Model)
-        {
-            <li>@almacen.nombre_almacen - @almacen.ubicacion</li>
-        }
-    </ul>
+
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex justify-content-between align-items-center">
+                <h1 class="page-title">
+                    <i class="fas fa-warehouse me-2"></i>Almacenes
+                </h1>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>Nuevo Almacén
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta de tabla -->
+    <div class="card">
+        
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Ubicación</th>
+                            <th>Movimientos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var almacen in Model)
+                        {
+                            <tr>
+                                <td>@almacen.id_almacen</td>
+                                <td>@almacen.nombre_almacen</td>
+                                <td>@almacen.ubicacion</td>
+                                <td>
+                                    <span class="badge bg-info">
+                                        @(almacen.MovimientosStock?.Count ?? 0) movimientos
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@almacen.id_almacen" class="btn btn-sm btn-info" title="Ver">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@almacen.id_almacen" class="btn btn-sm btn-primary" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" title="Eliminar" 
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal-@almacen.id_almacen">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Modal de confirmación para eliminar -->
+                                    <div class="modal fade" id="deleteModal-@almacen.id_almacen" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Estás seguro de que deseas eliminar el almacén "@almacen.nombre_almacen"?
+                                                    @if (almacen.MovimientosStock?.Count > 0)
+                                                    {
+                                                        <div class="alert alert-warning mt-2">
+                                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                                            Este almacén tiene @almacen.MovimientosStock.Count movimientos registrados.
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" name="id" value="@almacen.id_almacen" />
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        border-top: none;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .card-header {
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+</style>

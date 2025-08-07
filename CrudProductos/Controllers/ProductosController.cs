@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrudProductos.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CrudProductos.Controllers
@@ -19,10 +20,9 @@ namespace CrudProductos.Controllers
             _context = context;
         }
         public IActionResult Index()
-        
         {
-            var productos = _context.Productos.ToList();
-        return View(productos);
+            var productos = _context.Productos.Include(p => p.Categoria).ToList();
+            return View(productos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

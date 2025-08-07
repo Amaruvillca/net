@@ -38,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWxtYWNlbmVzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Almacenes/Info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWxtYWNlbmVzL0luZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Categorias/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmlhcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Categorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmlhcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Categorias/Info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmlhcy9JbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Home/Index.cshtml]
@@ -72,6 +80,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Productos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZHVjdG9zL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Productos/Info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZHVjdG9zL0luZm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/media/alva/Nuevo vol/curso/net/CrudProductos/Views/Shared/Error.cshtml]

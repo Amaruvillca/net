@@ -1,13 +1,139 @@
 @model List<Categorias>
 @{
-    ViewData["Title"] = "Categorías";
+    ViewData["Title"] = "Gestión de Categorías";
 }
-<div class="text-center">
-    <h1 class="display-4">Categorías</h1>
-    <p>Lista de categorías disponibles:</p>
-    <ul>
-        @foreach (var categoria in Model)
-        {
-            <li>@categoria.nombre_categoria - @categoria.descripcion</li>
-        }
-    </ul>
+
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex justify-content-between align-items-center">
+                <h1 class="page-title">
+                    <i class="fas fa-tags me-2"></i>Categorías
+                </h1>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>Nueva Categoría
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta de tabla -->
+    <div class="card">
+        
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Productos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var categoria in Model)
+                        {
+                            <tr>
+                                <td>@categoria.id_categoria</td>
+                                <td>@categoria.nombre_categoria</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(categoria.descripcion))
+                                    {
+                                        <span class="text-truncate" style="max-width: 200px; display: inline-block;" 
+                                              title="@categoria.descripcion">
+                                            @(categoria.descripcion.Length > 50 ? categoria.descripcion.Substring(0, 50) + "..." : categoria.descripcion)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Sin descripción</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        @(categoria.Productos?.Count ?? 0) productos
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@categoria.id_categoria" class="btn btn-sm btn-info" title="Ver">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@categoria.id_categoria" class="btn btn-sm btn-primary" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" title="Eliminar" 
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal-@categoria.id_categoria">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Modal de confirmación para eliminar -->
+                                    <div class="modal fade" id="deleteModal-@categoria.id_categoria" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Estás seguro de que deseas eliminar la categoría "@categoria.nombre_categoria"?
+                                                    @if (categoria.Productos?.Count > 0)
+                                                    {
+                                                        <div class="alert alert-warning mt-2">
+                                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                                            Esta categoría tiene @categoria.Productos.Count productos asociados.
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <form asp-action="Delete" method="post">
+                                                        <input type="hidden" name="id" value="@categoria.id_categoria" />
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        border-top: none;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .card-header {
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
