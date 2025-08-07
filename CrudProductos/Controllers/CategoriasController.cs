@@ -29,23 +29,23 @@ namespace CrudProductos.Controllers
         {
             return View("Error!");
         }
-         [HttpPost]
+        [HttpPost]
         public IActionResult Delete(int id_categoria)
         {
             try
             {
                 var categoria = _context.Categorias.Find(id_categoria);
-            if (categoria != null)
-            {
-                _context.Categorias.Remove(categoria);
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "Categoría eliminada correctamente.";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Categoría no encontrada.";
-            }
-            return RedirectToAction("Index");
+                if (categoria != null)
+                {
+                    _context.Categorias.Remove(categoria);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Categoría eliminada correctamente.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Categoría no encontrada.";
+                }
+                return RedirectToAction("Index");
             }
             catch (System.Exception)
             {
@@ -53,6 +53,23 @@ namespace CrudProductos.Controllers
 
                 return RedirectToAction("Index");
             }
+        }
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Categorias categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Categorias.Add(categoria);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Categoría creada correctamente.";
+                return RedirectToAction("Index");
+            }
+            return View(categoria);
         }
     }
 }

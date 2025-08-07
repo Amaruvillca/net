@@ -30,30 +30,47 @@ namespace CrudProductos.Controllers
         {
             return View("Error!");
         }
-         [HttpPost]
+        [HttpPost]
         public IActionResult Delete(int id_producto)
         {
             try
             {
                 var producto = _context.Productos.Find(id_producto);
-            if (producto != null)
-            {
-                _context.Productos.Remove(producto);
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "Producto eliminado correctamente.";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Producto no encontrado.";
-            }
-            return RedirectToAction("Index");
+                if (producto != null)
+                {
+                    _context.Productos.Remove(producto);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = "Producto eliminado correctamente.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Producto no encontrado.";
+                }
+                return RedirectToAction("Index");
             }
             catch (System.Exception)
             {
                 TempData["ErrorMessage"] = "Error al eliminar el almacén. Asegúrese de que no haya movimientos asociados.";
-                
+
                 return RedirectToAction("Index");
             }
+        }
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Productos producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Productos.Add(producto);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Producto creado correctamente.";
+                return RedirectToAction("Index");
+            }
+            return View(producto);
         }
     }
 }

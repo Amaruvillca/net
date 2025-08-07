@@ -1,0 +1,92 @@
+@model CrudProductos.Models.Categorias
+@{
+    ViewData["Title"] = "Nueva Categoría";
+}
+
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-header d-flex justify-content-between align-items-center">
+                <h1 class="page-title">
+                    <i class="fas fa-plus-circle me-2"></i>Nueva Categoría
+                </h1>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Volver al Listado
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Información de la Categoría
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="nombre_categoria" class="form-label">
+                                <i class="fas fa-tag me-2"></i>Nombre de la Categoría
+                            </label>
+                            <input asp-for="nombre_categoria" class="form-control" placeholder="Ej. Electrónicos, Ropa, Alimentos...">
+                            <span asp-validation-for="nombre_categoria" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="descripcion" class="form-label">
+                                <i class="fas fa-align-left me-2"></i>Descripción
+                            </label>
+                            <textarea asp-for="descripcion" class="form-control" rows="3" 
+                                      placeholder="Agrega una descripción detallada de la categoría"></textarea>
+                            <span asp-validation-for="descripcion" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="reset" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-eraser me-2"></i>Limpiar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Guardar Categoría
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+   
+    
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.5rem 0;
+        }
+    </style>
+}
