@@ -63,9 +63,14 @@ Sistema completo para la gestión de inventario con funcionalidades CRUD (Crear,
 
 2. Migración de la base de Datos
    ```bash
+   dotnet restore
+
    dotnet ef migrations add Inicial
 
    dotnet ef database update
+3. Iniciar Proyecto
+   ```bash
+    dotnet run
 ## Configuracion de la base de datos
 1. Nombre 
    ```bash
