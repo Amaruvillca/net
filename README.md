@@ -25,8 +25,6 @@ Sistema completo para la gestión de inventario con funcionalidades CRUD (Crear,
 - ✅ Gestión completa de productos con imágenes
 - 📦 Administración de categorías y almacenes
 - 🔄 Registro de movimientos de stock (entradas/salidas)
-- 🖥️ Diseño responsive (adaptable a móviles)
-- 🔒 Validaciones de formularios
 - 🚀 Optimizado para .NET 8
 
 ## 🛠 Stack Tecnológico
