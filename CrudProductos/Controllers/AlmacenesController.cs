@@ -55,7 +55,7 @@ namespace CrudProductos.Controllers
                 return RedirectToAction("Index");
             }
         }
-        
+
         public IActionResult Create()
         {
 
@@ -69,6 +69,32 @@ namespace CrudProductos.Controllers
                 _context.Almacenes.Add(almacen);
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "Almacén creado correctamente.";
+                return RedirectToAction("Index");
+            }
+            return View(almacen);
+        }
+
+        [Route("Almacenes/Edit/{id_almacen}")]
+        [HttpGet]
+        public IActionResult Edit(int id_almacen)
+        {
+            var almacen = _context.Almacenes.Find(id_almacen);
+            if (almacen == null)
+            {
+                TempData["ErrorMessage"] = "Almacén no encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(almacen);
+        }
+        [HttpPost]
+        [Route("Almacenes/Edit/{id_almacen}")]
+        public IActionResult Edit(Almacenes almacen)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Almacenes.Update(almacen);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Almacén actualizado correctamente.";
                 return RedirectToAction("Index");
             }
             return View(almacen);

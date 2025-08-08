@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/media/alva/Nuevo vol/curso/net/CrudProductos/wwwroot/img/4952eb37-e40c-4ba4-aeb6-8ca00dfc4ac7.jpg",
+      "PackagePath": "staticwebassets/img/4952eb37-e40c-4ba4-aeb6-8ca00dfc4ac7.jpg"
+    },
+    {
+      "Id": "/media/alva/Nuevo vol/curso/net/CrudProductos/wwwroot/img/52c7f15c-9c3b-4160-8881-bb3ffdebcd65.jpg",
+      "PackagePath": "staticwebassets/img/52c7f15c-9c3b-4160-8881-bb3ffdebcd65.jpg"
+    },
+    {
+      "Id": "/media/alva/Nuevo vol/curso/net/CrudProductos/wwwroot/img/cb70009c-dfeb-4e5d-9a3e-0d67b9ae7b7f.jpg",
+      "PackagePath": "staticwebassets/img/cb70009c-dfeb-4e5d-9a3e-0d67b9ae7b7f.jpg"
+    },
+    {
       "Id": "/media/alva/Nuevo vol/curso/net/CrudProductos/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

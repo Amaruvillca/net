@@ -29,7 +29,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Ubicación</th>
-                            <th>Movimientos</th>
+                            
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -40,11 +40,7 @@
                                 <td>@almacen.id_almacen</td>
                                 <td>@almacen.nombre_almacen</td>
                                 <td>@almacen.ubicacion</td>
-                                <td>
-                                    <span class="badge bg-info">
-                                        @(almacen.MovimientosStock?.Count ?? 0) movimientos
-                                    </span>
-                                </td>
+                                
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a asp-action="Details" asp-route-id="@almacen.id_almacen" class="btn btn-sm btn-info" title="Ver">

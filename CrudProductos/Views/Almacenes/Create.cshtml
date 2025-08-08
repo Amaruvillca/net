@@ -1,6 +1,6 @@
-@model CrudProductos.Models.Categorias
+@model CrudProductos.Models.Almacenes
 @{
-    ViewData["Title"] = "Nueva Categoría";
+    ViewData["Title"] = "Nuevo Almacén";
 }
 
 <div class="container-fluid">
@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="page-header d-flex justify-content-between align-items-center">
                 <h1 class="page-title">
-                    <i class="fas fa-plus-circle me-2"></i>Nueva Categoría
+                    <i class="fas fa-warehouse me-2"></i>Nuevo Almacén
                 </h1>
                 <a asp-action="Index" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-2"></i>Volver al Listado
@@ -18,8 +18,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <li class="breadcrumb-item"><a asp-action="Index">Categorías</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nueva</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Almacenes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Nuevo</li>
                 </ol>
             </nav>
         </div>
@@ -27,11 +27,11 @@
 
     <!-- Formulario -->
     <div class="row">
-        <div class="col-md-8 mx-auto">
+        <div class="col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-info-circle me-2"></i>Información de la Categoría
+                        <i class="fas fa-info-circle me-2"></i>Información del Almacén
                     </h5>
                 </div>
                 <div class="card-body">
@@ -39,20 +39,20 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                         <div class="mb-3">
-                            <label asp-for="nombre_categoria" class="form-label">
-                                <i class="fas fa-tag me-2"></i>Nombre de la Categoría
+                            <label asp-for="nombre_almacen" class="form-label">
+                                <i class="fas fa-signature me-2"></i>Nombre del Almacén
                             </label>
-                            <input asp-for="nombre_categoria" class="form-control" placeholder="Ej. Electrónicos, Ropa, Alimentos...">
-                            <span asp-validation-for="nombre_categoria" class="text-danger"></span>
+                            <input asp-for="nombre_almacen" class="form-control" placeholder="Ej. Almacén Central, Bodega Norte...">
+                            <span asp-validation-for="nombre_almacen" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="descripcion" class="form-label">
-                                <i class="fas fa-align-left me-2"></i>Descripción
+                            <label asp-for="ubicacion" class="form-label">
+                                <i class="fas fa-map-marker-alt me-2"></i>Ubicación
                             </label>
-                            <textarea asp-for="descripcion" class="form-control" rows="3" 
-                                      placeholder="Agrega una descripción detallada de la categoría"></textarea>
-                            <span asp-validation-for="descripcion" class="text-danger"></span>
+                            <textarea asp-for="ubicacion" class="form-control" rows="3" 
+                                      placeholder="Dirección exacta del almacén..."></textarea>
+                            <span asp-validation-for="ubicacion" class="text-danger"></span>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -60,7 +60,7 @@
                                 <i class="fas fa-eraser me-2"></i>Limpiar
                             </button>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Guardar Categoría
+                                <i class="fas fa-save me-2"></i>Registrar Almacén
                             </button>
                         </div>
                     </form>
@@ -71,7 +71,7 @@
 </div>
 
 @section Scripts {
-   
+    
     
     <style>
         .card {

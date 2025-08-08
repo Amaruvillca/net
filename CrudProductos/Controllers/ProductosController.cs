@@ -64,14 +64,114 @@ namespace CrudProductos.Controllers
         [HttpPost]
         public IActionResult Create(Productos producto, IFormFile imagen)
         {
+            if (imagen != null && imagen.Length > 0)
+            {
+                // Validar extensión
+                var extension = Path.GetExtension(imagen.FileName).ToLower();
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("imagen", "Tipo de archivo no permitido.");
+                    return View(producto);
+                }
+
+                // Generar nombre único
+                var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
+
+                // Asegurarse que el directorio existe
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                var filePath = Path.Combine(folderPath, uniqueFileName);
+
+                // Guardar el archivo
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    imagen.CopyTo(fileStream);
+                }
+
+                // Guardar el nombre en el modelo (ej. para mostrarlo luego)
+                producto.imagen = uniqueFileName;
+            }
+
+            // Validación del modelo y persistencia
             if (ModelState.IsValid)
             {
+                producto.fecha_registro = DateTime.Now;
                 _context.Productos.Add(producto);
                 _context.SaveChanges();
+
                 TempData["SuccessMessage"] = "Producto creado correctamente.";
                 return RedirectToAction("Index");
             }
+
             return View(producto);
         }
+        [HttpGet]
+        [Route("Productos/Edit/{id_producto}")]
+        public IActionResult Edit(int id_producto)
+        {
+            var producto = _context.Productos.Include(p => p.Categoria).FirstOrDefault(p => p.id_producto == id_producto);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Categorias = new SelectList(_context.Categorias, "id_categoria", "nombre_categoria", producto.id_categoria);
+            return View(producto);
+        }
+
+        [HttpPost]
+        [Route("Productos/Edit/{id_producto}")]
+        public IActionResult Edit(Productos producto, IFormFile imagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imagen != null && imagen.Length > 0)
+                {
+                    // Validar extensión
+                    var extension = Path.GetExtension(imagen.FileName).ToLower();
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        ModelState.AddModelError("imagen", "Tipo de archivo no permitido.");
+                        return View(producto);
+                    }
+
+                    // Generar nombre único
+                    var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
+
+                    // Asegurarse que el directorio existe
+                    if (!Directory.Exists(folderPath))
+                        Directory.CreateDirectory(folderPath);
+
+                    var filePath = Path.Combine(folderPath, uniqueFileName);
+
+                    // Guardar el archivo
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        imagen.CopyTo(fileStream);
+                    }
+
+                    // Guardar el nombre en el modelo (ej. para mostrarlo luego)
+                    producto.imagen = uniqueFileName;
+                }
+                producto.fecha_registro = DateTime.Now;
+
+                _context.Productos.Update(producto);
+                _context.SaveChanges();
+producto.fecha_registro = DateTime.Now;
+                TempData["SuccessMessage"] = "Producto actualizado correctamente.";
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Categorias = new SelectList(_context.Categorias, "id_categoria", "nombre_categoria", producto.id_categoria);
+            return View(producto);
+        }
+
     }
 }

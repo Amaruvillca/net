@@ -72,11 +72,9 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="stock" class="form-label">
-                                    <i class="fas fa-boxes me-2"></i>Stock Inicial
-                                </label>
-                                <input asp-for="stock" class="form-control" placeholder="0" value="0">
-                                <span asp-validation-for="stock" class="text-danger"></span>
+                               
+                                <input type="hidden" asp-for="stock" class="form-control" placeholder="0" value="0">
+                                
                             </div>
                         </div>
 

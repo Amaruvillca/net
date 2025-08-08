@@ -1,4 +1,5 @@
 @model List<MovimientosStock>
+
 @{
     ViewData["Title"] = "Gestión de Movimientos";
 }
@@ -162,6 +163,68 @@
         </div>
     </div>
 </div>
+<!-- Modal para Entrada/Salida -->
+<div class="modal fade" id="movementModal" tabindex="-1" aria-labelledby="movementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="movementModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="CreateMovement" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="movementType" name="tipo_movimiento" value="">
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Producto</label>
+                            <select name="id_producto" class="form-select" required>
+                                <option value="">-- Seleccionar Producto --</option>
+                                @foreach (var producto in ViewBag.Productos as List<Productos>)
+                                {
+                                    <option value="@producto.id_producto">@producto.nombre_producto (Stock: @producto.stock)</option>
+                                }
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Almacén</label>
+                            <select name="id_almacen" class="form-select" required>
+                                <option value="">-- Seleccionar Almacén --</option>
+                                @foreach (var almacen in ViewBag.Almacenes as List<Almacenes>)
+                                {
+                                    <option value="@almacen.id_almacen">@almacen.nombre_almacen</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cantidad</label>
+                            <input type="number" name="cantidad" class="form-control" min="1" required>
+                        </div>
+                        
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">Fecha</label>
+                            <input type="datetime-local" name="fecha_movimiento" class="form-control" 
+                                   value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Observaciones</label>
+                        <textarea name="observacion" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="submitMovement" class="btn btn-success">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <style>
     .table th {
@@ -191,3 +254,23 @@
         text-overflow: ellipsis;
     }
 </style>
+@section Scripts {
+    <script>
+        // Función para abrir modal de entrada/salida
+        function openMovementModal(type) {
+            // Cambiar el título según el tipo de movimiento
+            if(type === 'ENTRADA') {
+                $('#movementModalLabel').html('<i class="fas fa-arrow-down me-2"></i>Registrar Entrada de Stock');
+                $('#movementType').val('ENTRADA');
+                $('#submitMovement').removeClass('btn-danger').addClass('btn-success');
+            } else {
+                $('#movementModalLabel').html('<i class="fas fa-arrow-up me-2"></i>Registrar Salida de Stock');
+                $('#movementType').val('SALIDA');
+                $('#submitMovement').removeClass('btn-success').addClass('btn-danger');
+            }
+            
+            // Mostrar el modal
+            $('#movementModal').modal('show');
+        }
+    </script>
+}

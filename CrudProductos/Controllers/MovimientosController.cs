@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CrudProductos.Controllers
 {
-    
+
     public class MovimientosController : Controller
     {
         protected readonly ContextDb _context;
@@ -20,7 +20,10 @@ namespace CrudProductos.Controllers
         }
 
         public IActionResult Index()
+
         {
+            ViewBag.Productos = _context.Productos.ToList();
+            ViewBag.Almacenes = _context.Almacenes.ToList();
             var movimientos = _context.MovimientosStock.Include(m => m.Producto).Include(m => m.Almacen).ToList();
             return View(movimientos);
         }
@@ -45,6 +48,37 @@ namespace CrudProductos.Controllers
         public IActionResult Error()
         {
             return View("Error!");
+        }
+
+
+        
+
+        [HttpPost]
+        public IActionResult CreateMovement(MovimientosStock movimiento)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.MovimientosStock.Add(movimiento);
+                // Actualizar el stock del producto
+                var producto = _context.Productos.Find(movimiento.id_producto);
+                if (producto != null)
+                {
+                    if (movimiento.tipo_movimiento == "ENTRADA")
+                    {
+                        producto.stock += movimiento.cantidad;
+                    }
+                    else if (movimiento.tipo_movimiento == "SALIDA")
+                    {
+                        producto.stock -= movimiento.cantidad;
+                    }
+                }
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Movimiento registrado correctamente.";
+                return RedirectToAction("Index");
+            }
+            ViewBag.Productos = _context.Productos.ToList();
+            ViewBag.Almacenes = _context.Almacenes.ToList();
+            return View(movimiento);
         }
     }
 }
